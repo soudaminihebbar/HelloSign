@@ -3,6 +3,8 @@ import org.testng.annotations.BeforeTest;
 
 public class Base {
 
+    public static String signatureRequestId;
+
     @BeforeTest
     public void setup() {
         RestAssured.baseURI = "https://api.hellosign.com/v3/signature_request/";

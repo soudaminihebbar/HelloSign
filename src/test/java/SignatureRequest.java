@@ -1,4 +1,5 @@
 import io.restassured.RestAssured;
+import io.restassured.response.ExtractableResponse;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -8,7 +9,7 @@ public class SignatureRequest extends Base {
 
     @Test
     public void signatureRequest() {
-        RestAssured
+        ExtractableResponse response = RestAssured
                 .given()
                 .contentType("multipart/form-data")
                 .multiPart("test_mode","1")
@@ -18,6 +19,8 @@ public class SignatureRequest extends Base {
                 .post("send")
                 .then()
                 .assertThat()
-                .statusCode(200);
+                .statusCode(200)
+                .extract();
+        signatureRequestId = response.jsonPath().get("signature_request.signature_request_id");
     }
 }
